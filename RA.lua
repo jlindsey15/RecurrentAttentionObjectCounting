@@ -98,8 +98,8 @@ rnn = nn.Recurrent(numHidden4, glimpse, recurrent, nn['ReLU'](), 10000)
 glimpseLoc = nn.Sequential()
 glimpseLoc:add(nn.Linear(numHidden4, 2))
 glimpseLoc:add(nn.HardTanh())
-glimpseLoc:add(nn.ReinforceNormal(2*0.2))
-glimpseLoc:add(nn.HardTanh()) 
+glimpseLoc:add(nn.ReinforceNormal(0.4))
+glimpseLoc:add(nn.HardTanh())
 glimpseLoc:add(nn.MulConstant(20/dataset:imageSize("h")))
 
 attention = nn.RecurrentAttention(rnn, glimpseLoc, numGlimpses, {numHidden4})
@@ -160,7 +160,7 @@ xp = dp.Experiment{
 model = agent,
 optimizer = optimize,
 tester = tester,
-max_epoch = 30
+max_epoch = 2
 }
 
 xp:run(dataset)
